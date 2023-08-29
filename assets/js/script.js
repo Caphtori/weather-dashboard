@@ -102,7 +102,7 @@ function renderCurrentCard(){
     let titleBox = document.createElement("div");
     let cityTitleEl = document.createElement("h2");
     let cityDateEl = document.createElement("h3");
-    let cIcon = document.createElement("i")
+    // let cIcon = document.createElement("img")
     let cTemp = document.createElement("p");
     let cWind = document.createElement("p");
     let cHum = document.createElement("p");
@@ -114,17 +114,22 @@ function renderCurrentCard(){
     titleBox.setAttribute("class", "titleBox");
 
     if (cCity === null|| cCity ===""){
+        cityDateEl.setAttribute("class", "nv")
         cityTitleEl.textContent = "Enter Valid City Name";
         cTemp.textContent = "Temp:";
         cWind.textContent = "Wind:";
         cHum.textContent = "Humidity:";
     } else {
-        let cityTitle = cCity.city.name+" "+today.format("ddd, M/D/YYYY")
+        // let cityTitle = cCity.city.name+" "+today.format("ddd, M/D/YYYY")
         let cTempVar = cCity.list[0].main.temp;
         let cWindVar = cCity.list[0].wind.speed;
         let cHumVar = cCity.list[0].main.humidity;
 
-        cityTitleEl.textContent = cityTitle;
+        cityDateEl.setAttribute("class", "")
+
+        // cityTitleEl.textContent = cityTitle;
+        cityTitleEl.textContent = cCity.city.name;
+        cityDateEl.textContent = today.format("ddd, M/D/YYYY");
         cTemp.textContent = "Temp: "+cTempVar+"°F";
         cWind.textContent = "Wind: "+cWindVar+"mph";
         cHum.textContent = "Humidity: "+cHumVar+"%";
@@ -132,7 +137,9 @@ function renderCurrentCard(){
 
 
     titleBox.appendChild(cityTitleEl);
-    currentBoxEl.appendChild(cityTitleEl);
+    titleBox.appendChild(cityDateEl);
+    // currentBoxEl.appendChild(cityTitleEl);
+    currentBoxEl.appendChild(titleBox);
     currentBoxEl.appendChild(cTemp);
     currentBoxEl.appendChild(cWind);
     currentBoxEl.appendChild(cHum);
