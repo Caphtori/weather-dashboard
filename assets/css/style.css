@@ -87,6 +87,7 @@ main{
     gap: 1rem;
 }
 
+/* Current Box */
 .current-box{
     flex-grow: 1;
     padding: 1rem;
@@ -95,9 +96,15 @@ main{
     border-radius: 5px;
 }
 
-h2{
-    margin-bottom: 1rem;
+.titleBox {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
 }
+
+/* h2{
+    margin-bottom: 1rem;
+} */
 
 .forecast-five{
     display: flex;
