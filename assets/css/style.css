@@ -124,20 +124,34 @@ main{
 }
 
 .history-li{
-    padding: .5rem 2rem;
+    padding: .25rem 1rem;
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    /* justify-content: center; */
+    justify-content: space-between;
     align-items: center;
     background-color: navy;
     color: whitesmoke;
     border-radius: 25px;
     font-size: .75rem;
+    gap: 1.5rem;
 }
 
 .history-li:hover{
     cursor: pointer;
     background-color: grey;
+}
+
+.liClose{
+    padding: .25rem;
+}
+
+.liClose:hover{
+    color: red;
+}
+
+.liClose:hover .history-li{
+    background-color: navy;
 }
 
 .history-li:active{
