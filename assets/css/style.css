@@ -70,12 +70,47 @@ main{
 }
 
 .formbtn-custom:hover{
-    background-color: rgb(108, 108, 108);
+    /* background-color: rgb(108, 108, 108); */
+    background-color: grey;
+    outline: none;
+    box-shadow: none;
+}
+
+.formbtn-custom:active{
+    background-color: navy;
+}
+
+.formbtn-custom:focus{
+    background-color: navy;
+    outline: none;
+    box-shadow: none;
 }
 
 /* -History */
 
-.search-hostory{
+.search-history{
+    display: flex;
+    flex-direction: column;
+}
+
+.clear{
+    display: flex;
+    align-self: end;
+    color: grey;
+    margin-bottom: 0;
+}
+
+.clear:hover{
+    cursor: pointer;
+    color: navy;
+}
+
+.clear:active{
+    cursor: pointer;
+    color: grey;
+}
+
+.search-history{
     overflow-y: scroll;
 }
 
@@ -84,7 +119,7 @@ main{
     flex-direction: column;
 
     gap: .25rem;
-    margin-top: 1rem;
+    /* margin-top: .5rem; */
     align-items: start;
 }
 
