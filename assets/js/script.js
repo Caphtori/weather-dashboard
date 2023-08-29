@@ -14,6 +14,7 @@
 let citySearchEl = document.querySelector("#city-search");
 // let submitEl = document.querySelector("#submit-input");
 let formBtnEl = document.querySelector("#form-btn");
+let clearEl = document.querySelector("#clear");
 let currentBoxEl = document.querySelector("#current-box");
 let historyUlEl = document.querySelector("#history-ul");
 let ffUlEl = document.querySelector("#forecast-ul");
@@ -37,9 +38,6 @@ function citySearch(event){
             
         })
         .then((data)=>{
-            // let nameArray=[];
-            // let test1 = dayjs(data.list[0].dt)
-            // console.log(test1.format("hA"))
             let storedHistory = JSON.parse(localStorage.getItem("masterHistory"));
             if (storedHistory!==null){
                 history = storedHistory;
@@ -47,19 +45,16 @@ function citySearch(event){
             cCity=data;
             console.log(data);
             history.push(data);
-            // if (cCity === null|| cCity ===""){
-            //     for (let i=0; i<history.length; i++){
-            //         if (history[i].city.name===data.city.name){
-            //             history.splice(i, 1, data)
-            //             nameArray.push(data.name);
-            //         } else {
-            //             nameArray.push(history[i].name);
-            //         };
-            //     }
-            //     if (!nameArray.includes(data.name)){
-            //         localStorage.setItem("masterHistory", JSON.stringify(history));
-            //     };
-            // }
+
+            if (cCity !== null|| cCity !==""){
+                for (let i=0; i<history.length; i++){
+                    if (history[i].city.name===cCity.city.name){
+                        history.splice(i, 1);
+                    }
+                };
+                history.push(cCity);
+            }
+            
             localStorage.setItem("masterHistory", JSON.stringify(history));
             renderHistory()
             renderCurrentCard();
@@ -131,3 +126,9 @@ renderHistory();
 
 formBtnEl.addEventListener("click", citySearch);
 // submitEl.addEventListener("click", citySearch);
+
+clearEl.addEventListener("click", ()=>{
+    history = [];
+    localStorage.setItem("masterHistory", JSON.stringify(history));
+    renderHistory();
+});
