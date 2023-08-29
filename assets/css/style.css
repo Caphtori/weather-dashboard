@@ -30,5 +30,39 @@ main{
 .search-area{
     display: flex;
     flex-direction: column;
-    padding: .5rem;
+    padding: 1rem .5rem;
+}
+
+.searchbox{
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+    border-bottom: 2px solid grey;
+}
+
+.searchbox label{
+    font-size: 1.25rem;
+    margin-left: .25rem;
+}
+
+.searchcard{
+    display: flex;
+    flex-direction: row;
+    padding-bottom: .5rem;
+}
+
+.form-custom{
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.formbtn-custom{
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    background-color: navy;
+    color: antiquewhite;
+}
+
+.formbtn-custom:hover{
+    background-color: rgb(108, 108, 108);
 }
