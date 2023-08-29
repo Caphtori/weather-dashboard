@@ -38,6 +38,8 @@ function citySearch(event){
         })
         .then((data)=>{
             // let nameArray=[];
+            // let test1 = dayjs(data.list[0].dt)
+            // console.log(test1.format("hA"))
             let storedHistory = JSON.parse(localStorage.getItem("masterHistory"));
             if (storedHistory!==null){
                 history = storedHistory;
@@ -84,24 +86,6 @@ function renderHistory(){
 
 
 function renderCurrentCard(){
-    let now = dayjs();
-    let currentSlot = ()=>{
-        if (now.hour()<8){
-            return 0;
-        } else if (now.hour()<11){
-            return 1;
-        } else if (now.hour()<14){
-            return 2;
-        } else if (now.hour()<17){
-            return 3;
-        } else if (now.hour()<20){
-            return 4;
-        } else if (now.hour()<23){
-            return 5;
-        };
-    };
-    console.log(currentSlot())
-
     let titleBox = document.createElement("div");
     let cityTitleEl = document.createElement("h2");
     let cityDateEl = document.createElement("h3");
@@ -109,6 +93,8 @@ function renderCurrentCard(){
     let cTemp = document.createElement("p");
     let cWind = document.createElement("p");
     let cHum = document.createElement("p");
+
+    
 
     currentBoxEl.innerHTML="";
 
@@ -121,9 +107,9 @@ function renderCurrentCard(){
         cHum.textContent = "Humidity:";
     } else {
         let cityTitle = cCity.city.name+" "+today.format("ddd, M/D/YYYY")
-        let cTempVar = cCity.list[currentSlot()].main.temp;
-        let cWindVar = cCity.list[currentSlot()].wind.speed;
-        let cHumVar = cCity.list[currentSlot()].main.humidity;
+        let cTempVar = cCity.list[0].main.temp;
+        let cWindVar = cCity.list[0].wind.speed;
+        let cHumVar = cCity.list[0].main.humidity;
 
         cityTitleEl.textContent = cityTitle;
         cTemp.textContent = "Temp: "+cTempVar+"°F";
