@@ -135,6 +135,16 @@ main{
     font-size: .75rem;
 }
 
+.history-li:hover{
+    cursor: pointer;
+    background-color: grey;
+}
+
+.history-li:active{
+    cursor: pointer;
+    background-color: navy;
+}
+
 /* Results */
 
 .results-section{

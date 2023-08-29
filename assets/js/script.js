@@ -38,30 +38,31 @@ function citySearch(event){
             
         })
         .then((data)=>{
-            let storedHistory = JSON.parse(localStorage.getItem("masterHistory"));
-            if (storedHistory!==null){
-                history = storedHistory;
-            }
-            cCity=data;
-            console.log(data);
-            history.push(data);
-
-            if (cCity !== null|| cCity !==""){
-                for (let i=0; i<history.length; i++){
-                    if (history[i].city.name===cCity.city.name){
-                        history.splice(i, 1);
-                    }
-                };
-                history.push(cCity);
-            }
-            
-            localStorage.setItem("masterHistory", JSON.stringify(history));
-            renderHistory()
-            renderCurrentCard();
-            citySearchEl.value = "";
+            search(data);
         })
     
 }
+
+function search(cityObj){
+    let storedHistory = JSON.parse(localStorage.getItem("masterHistory"));
+        if (storedHistory!==null){
+            history = storedHistory;
+        }
+        cCity=cityObj;
+        if (cCity !== null|| cCity !==""){
+            for (let i=0; i<history.length; i++){
+                if (history[i].city.name===cCity.city.name){
+                    history.splice(i, 1);
+                }
+            };
+            history.push(cCity);
+        }
+        
+        localStorage.setItem("masterHistory", JSON.stringify(history));
+        renderHistory()
+        renderCurrentCard();
+        citySearchEl.value = "";
+};
 
 function renderHistory(){
     historyUlEl.innerHTML="";
@@ -75,6 +76,7 @@ function renderHistory(){
         li.setAttribute("class", "history-li");
         li.textContent = revHistory[i].city.name;
         historyUlEl.appendChild(li);
+        li.addEventListener("click", ()=>{search(revHistory[i])}, { once:true })
     }
 
 }
