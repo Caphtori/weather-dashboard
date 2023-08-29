@@ -73,8 +73,31 @@ main{
     background-color: rgb(108, 108, 108);
 }
 
+/* -History */
+
 .search-hostory{
     overflow-y: scroll;
+}
+
+.history-ul{
+    display: flex;
+    flex-direction: column;
+
+    gap: .25rem;
+    margin-top: 1rem;
+    align-items: start;
+}
+
+.history-li{
+    padding: .5rem 2rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background-color: navy;
+    color: whitesmoke;
+    border-radius: 25px;
+    font-size: .75rem;
 }
 
 /* Results */

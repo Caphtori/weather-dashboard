@@ -37,12 +37,49 @@ function citySearch(event){
             
         })
         .then((data)=>{
+            // let nameArray=[];
+            let storedHistory = JSON.parse(localStorage.getItem("masterHistory"));
+            if (storedHistory!==null){
+                history = storedHistory;
+            }
             cCity=data;
             console.log(data);
+            history.push(data);
+            // if (cCity === null|| cCity ===""){
+            //     for (let i=0; i<history.length; i++){
+            //         if (history[i].city.name===data.city.name){
+            //             history.splice(i, 1, data)
+            //             nameArray.push(data.name);
+            //         } else {
+            //             nameArray.push(history[i].name);
+            //         };
+            //     }
+            //     if (!nameArray.includes(data.name)){
+            //         localStorage.setItem("masterHistory", JSON.stringify(history));
+            //     };
+            // }
+            localStorage.setItem("masterHistory", JSON.stringify(history));
+            renderHistory()
             renderCurrentCard();
             citySearchEl.value = "";
         })
     
+}
+
+function renderHistory(){
+    historyUlEl.innerHTML="";
+    let storedHistory = JSON.parse(localStorage.getItem("masterHistory"));
+    if (storedHistory!==null){
+        history = storedHistory;
+    }
+    let revHistory = history.reverse();
+    for (let i=0; i<revHistory.length; i++){
+        let li = document.createElement("li");
+        li.setAttribute("class", "history-li");
+        li.textContent = revHistory[i].city.name;
+        historyUlEl.appendChild(li);
+    }
+
 }
 
 
@@ -104,7 +141,7 @@ function renderCurrentCard(){
 
 
 renderCurrentCard();
-
+renderHistory();
 
 formBtnEl.addEventListener("click", citySearch);
 // submitEl.addEventListener("click", citySearch);
