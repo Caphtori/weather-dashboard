@@ -45,23 +45,23 @@ function citySearch(event){
 
 function search(cityObj){
     let storedHistory = JSON.parse(localStorage.getItem("masterHistory"));
-        if (storedHistory!==null){
-            history = storedHistory;
-        }
-        cCity=cityObj;
-        if (cCity !== null|| cCity !==""){
-            for (let i=0; i<history.length; i++){
-                if (history[i].city.name===cCity.city.name){
-                    history.splice(i, 1);
-                }
-            };
-            history.push(cCity);
-        }
-        
-        localStorage.setItem("masterHistory", JSON.stringify(history));
-        renderHistory()
-        renderCurrentCard();
-        citySearchEl.value = "";
+    if (storedHistory!==null){
+        history = storedHistory;
+    }
+    cCity=cityObj;
+    if (cCity !== null|| cCity !==""){
+        for (let i=0; i<history.length; i++){
+            if (history[i].city.name===cCity.city.name){
+                history.splice(i, 1);
+            }
+        };
+        history.push(cCity);
+    };
+    
+    localStorage.setItem("masterHistory", JSON.stringify(history));
+    renderHistory();
+    renderCurrentCard();
+    citySearchEl.value = "";
 };
 
 function renderHistory(){
@@ -69,14 +69,30 @@ function renderHistory(){
     let storedHistory = JSON.parse(localStorage.getItem("masterHistory"));
     if (storedHistory!==null){
         history = storedHistory;
-    }
+    };
     let revHistory = history.reverse();
     for (let i=0; i<revHistory.length; i++){
         let li = document.createElement("li");
+        let liClose = document.createElement("div");
+        let liCloseI = document.createElement("i");
+        liCloseI.setAttribute("class", "fa fa-close");
+        liClose.setAttribute("class", "liClose");
         li.setAttribute("class", "history-li");
         li.textContent = revHistory[i].city.name;
+        liClose.appendChild(liCloseI);
+        li.appendChild(liClose);
         historyUlEl.appendChild(li);
-        li.addEventListener("click", ()=>{search(revHistory[i])}, { once:true })
+        li.addEventListener("click", ()=>{search(revHistory[i])}, { once:true });
+        liClose.addEventListener("click", (event)=>{
+            event.stopPropagation();
+            for (let n=0; n<history.length; n++){
+                if (history[n].city.name===revHistory[i].city.name){
+                    history.splice(n, 1);
+                };
+            };
+            localStorage.setItem("masterHistory", JSON.stringify(history));
+            renderHistory();
+        }, { once:true });
     }
 
 }
