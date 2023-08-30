@@ -178,12 +178,21 @@ main{
     border-radius: 5px;
 }
 
+.nameBox{
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+}
+
 .titleBox {
     display: flex;
     flex-direction: column;
-    /* gap: 1rem; */
     margin-bottom: .5rem;
 }
+
+/* .cIcon{
+    margin-bottom: 1rem;
+} */
 
 /* h2{
     margin-bottom: 1rem;
