@@ -34,6 +34,7 @@ function citySearch(event){
                 return response.json();
             } else {
                 cCity = null;
+                citySearchEl.value ="";
             };
             
         })
@@ -57,12 +58,12 @@ function search(cityObj){
             }
         };
         history.push(cCity);
+        renderForecast();
     };
     
     localStorage.setItem("masterHistory", JSON.stringify(history));
     renderHistory();
     renderCurrentCard();
-    renderForecast()
     citySearchEl.value = "";
 };
 
@@ -158,23 +159,123 @@ function renderCurrentCard(){
 function renderForecast(){
     let now = dayjs();
     let forecast = [];
+    let highArray=[];
+    let lowArray=[];
 
-    console.log(cCity)
+    console.log(cCity.city.name)
+
+    ffUlEl.innerHTML="";
 
     for (let i=0; i<cCity.list.length; i++){
         let listTime = dayjs(cCity.list[i].dt_txt);
         // console.log(cCity.list[i].dt_txt)
         // console.log(listTime.format("M/D/YYYY h:mm"))
         if (!listTime.isSame(now, "date")&&listTime.hour()===12){
-            console.log("bub")
             forecast.push(cCity.list[i]);
         };  
     };
 
     for (let i=0; i<forecast.length; i++){
         let li = document.createElement("li");
+        let fTitleBox = document.createElement("div");
+        let fDOWBox = document.createElement("div");
+        let fDOW = document.createElement("h4");
+        let fDate = document.createElement("h5");
+        let fIcon = document.createElement("img");
+        let fTemp = document.createElement("p");
+        let fHigh = document.createElement("p");
+        let fLow = document.createElement("p");
+        let fWind = document.createElement("p");
+        let fHum = document.createElement("p");
+
+
+        let weatherIcon = forecast[i].weather[0].icon;
+        let iconAddress = "http://openweathermap.org/img/w/"+weatherIcon+".png";
+        let fTempVar = forecast[i].main.temp;
+        let fHighVar = findHigh(forecast[i]);
+        let fLowVar = findLow(forecast[i]);
+        let fWindVar = forecast[i].wind.speed;
+        let fHumVar = forecast[i].main.humidity;
+
+        let fTime = dayjs(forecast[i].dt_txt);
+
+       
+
+        
+        fIcon.setAttribute("src", iconAddress);
+        fIcon.setAttribute("class", "fIcon");
+
+        li.setAttribute("class", "ffLi");
+
+        fDOW.textContent = fTime.format("dddd");
+        fDate.textContent = fTime.format("M/D/YYYY")
+
+        fTemp.textContent = "Temp: "+fTempVar+"°F";
+        fHigh.textContent = "High: "+fHighVar+"°F";
+        fLow.textContent = "Low: "+fLowVar+"°F";
+        fWind.textContent = "Wind: "+fWindVar+"mph";
+        fHum.textContent = "Humidity: "+fHumVar+"%";
+
+
+        
+
+
+        // fDOWBox.appendChild(fDOW);
+        // fDOWBox.appendChild(fIcon);
+        // fTitleBox.appendChild(fDOWBox);
+        fTitleBox.appendChild(fDOW);
+        fTitleBox.appendChild(fDate);
+        li.appendChild(fTitleBox);
+
+        li.appendChild(fIcon);
+
+        li.appendChild(fTemp);
+        li.appendChild(fHigh);
+        li.appendChild(fLow);
+        li.appendChild(fWind);
+        li.appendChild(fHum);
+        ffUlEl.appendChild(li);
     }
-}
+
+    // function findHigh(){
+        
+    //     let high=null;
+    //     for (let i=0; i<forecast.length; i++){
+    //         let objTime = dayjs(cCity.list[i].dt_txt);
+    //         for (let n=0; n<cCity.list.length; n++){
+    //             if (cCity.list[i].isSame(objTime, "date")){
+
+    //             };
+    //         };
+    //     };
+    // };
+    function findHigh(obj){
+        let high=0;
+        let objTime = dayjs(obj.dt_txt);
+        for (let i=0; i<cCity.list.length; i++){
+            let standTime = dayjs(cCity.list[i].dt_txt);
+            if (standTime.isSame(objTime, "date")){
+                if (obj.main.temp_max>high){
+                    high = obj.main.temp_max;
+                }
+            };
+        };
+        return high;
+    };
+    function findLow(obj){
+        let low=100;
+        let objTime = dayjs(obj.dt_txt);
+        for (let i=0; i<cCity.list.length; i++){
+            let standTime = dayjs(cCity.list[i].dt_txt);
+            if (standTime.isSame(objTime, "date")){
+                if (obj.main.temp_min<low){
+                    high = obj.main.temp_min;
+                }
+            };
+        };
+        return low;
+    };
+};
 
 renderCurrentCard();
 renderHistory();
