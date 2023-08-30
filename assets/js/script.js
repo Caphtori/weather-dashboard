@@ -49,6 +49,7 @@ function search(cityObj){
         history = storedHistory;
     }
     cCity=cityObj;
+    console.log(cCity)
     if (cCity !== null|| cCity !==""){
         for (let i=0; i<history.length; i++){
             if (history[i].city.name===cCity.city.name){
@@ -61,6 +62,7 @@ function search(cityObj){
     localStorage.setItem("masterHistory", JSON.stringify(history));
     renderHistory();
     renderCurrentCard();
+    renderForecast()
     citySearchEl.value = "";
 };
 
@@ -100,32 +102,39 @@ function renderHistory(){
 
 function renderCurrentCard(){
     let titleBox = document.createElement("div");
+    let nameBox = document.createElement("div");
     let cityTitleEl = document.createElement("h2");
     let cityDateEl = document.createElement("h3");
-    // let cIcon = document.createElement("img")
+    let cIcon = document.createElement("img")
     let cTemp = document.createElement("p");
     let cWind = document.createElement("p");
     let cHum = document.createElement("p");
-
     
 
     currentBoxEl.innerHTML="";
 
     titleBox.setAttribute("class", "titleBox");
+    nameBox.setAttribute("class", "nameBox");
 
     if (cCity === null|| cCity ===""){
+        cIcon.setAttribute("class", "nv");
         cityDateEl.setAttribute("class", "nv")
         cityTitleEl.textContent = "Enter Valid City Name";
         cTemp.textContent = "Temp:";
         cWind.textContent = "Wind:";
         cHum.textContent = "Humidity:";
     } else {
+        let weatherIcon = cCity.list[0].weather[0].icon;
+        let iconAddress = "http://openweathermap.org/img/w/"+weatherIcon+".png";
         // let cityTitle = cCity.city.name+" "+today.format("ddd, M/D/YYYY")
         let cTempVar = cCity.list[0].main.temp;
         let cWindVar = cCity.list[0].wind.speed;
         let cHumVar = cCity.list[0].main.humidity;
 
-        cityDateEl.setAttribute("class", "")
+        cIcon.setAttribute("src", iconAddress);
+        cIcon.setAttribute("class", "cIcon");
+
+        cityDateEl.setAttribute("class", "");
 
         // cityTitleEl.textContent = cityTitle;
         cityTitleEl.textContent = cCity.city.name;
@@ -135,8 +144,9 @@ function renderCurrentCard(){
         cHum.textContent = "Humidity: "+cHumVar+"%";
     }
 
-
-    titleBox.appendChild(cityTitleEl);
+    nameBox.appendChild(cityTitleEl);
+    nameBox.appendChild(cIcon);
+    titleBox.appendChild(nameBox);
     titleBox.appendChild(cityDateEl);
     // currentBoxEl.appendChild(cityTitleEl);
     currentBoxEl.appendChild(titleBox);
@@ -145,6 +155,26 @@ function renderCurrentCard(){
     currentBoxEl.appendChild(cHum);
 }
 
+function renderForecast(){
+    let now = dayjs();
+    let forecast = [];
+
+    console.log(cCity)
+
+    for (let i=0; i<cCity.list.length; i++){
+        let listTime = dayjs(cCity.list[i].dt_txt);
+        // console.log(cCity.list[i].dt_txt)
+        // console.log(listTime.format("M/D/YYYY h:mm"))
+        if (!listTime.isSame(now, "date")&&listTime.hour()===12){
+            console.log("bub")
+            forecast.push(cCity.list[i]);
+        };  
+    };
+
+    for (let i=0; i<forecast.length; i++){
+        let li = document.createElement("li");
+    }
+}
 
 renderCurrentCard();
 renderHistory();
