@@ -39,15 +39,14 @@
         <section class="search-area">
             <div class="searchbox">
                 <label for="city-search">Search for a City</label>
-                <div class="searchcard">
-                    <input type="text" placeholder="Atlanta" class="form-control form-custom" id="city-search"/>
-                    <!-- <input type="submit" name="submit-input" id="submit-input"> -->
+                <form class="searchcard" id="form-master">
+                    <input type="text" placeholder="City name..." class="form-control form-custom" id="city-search"/>
                     <div class="input-group-append">
                         <button class="btn btn-outline-secondary formbtn-custom" type="button" id="form-btn">
                             <i class="fas fa-search" style='font-size:1rem'></i>
                         </button>
                     </div>
-                </div>
+                </form>
             </div>
             <div id="search-history" class="search-history">
                 <p class="clear" id="clear">Clear</p>

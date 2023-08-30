@@ -74,7 +74,6 @@ main{
 }
 
 .formbtn-custom:hover{
-    /* background-color: rgb(108, 108, 108); */
     background-color: grey;
     outline: none;
     box-shadow: none;
@@ -115,6 +114,7 @@ main{
 }
 
 .search-history{
+    max-height: 77.5vh;
     overflow-y: scroll;
 }
 
@@ -131,13 +131,11 @@ main{
     padding: .25rem 1rem;
     display: flex;
     flex-direction: row;
-    /* justify-content: center; */
     justify-content: space-between;
     align-items: center;
     background-color: navy;
     color: whitesmoke;
     border-radius: 25px;
-    /* font-size: .75rem; */
     gap: 1.5rem;
     min-width: 90%;
 }
@@ -176,7 +174,7 @@ main{
 
 /* Current Box */
 .current-box{
-    flex-grow: 1;
+    flex-grow: 0;
     padding: 1rem;
     padding-bottom: .5rem;
     border: 2px solid grey;
@@ -194,21 +192,6 @@ main{
     flex-direction: column;
     margin-bottom: .5rem;
 }
-
-/* .cIcon{
-    margin-bottom: 1rem;
-} */
-
-/* h2{
-    margin-bottom: 1rem;
-} */
-
-/* .forecast-five{
-    display: flex;
-    flex-direction: column;
-    align-items: start;
-    gap: 1rem;
-} */
 
 .forecast-card{
     display: flex;
