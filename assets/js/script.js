@@ -50,7 +50,6 @@ function search(cityObj){
         history = storedHistory;
     }
     cCity=cityObj;
-    console.log(cCity)
     if (cCity !== null|| cCity !==""){
         for (let i=0; i<history.length; i++){
             if (history[i].city.name===cCity.city.name){
@@ -159,17 +158,11 @@ function renderCurrentCard(){
 function renderForecast(){
     let now = dayjs();
     let forecast = [];
-    let highArray=[];
-    let lowArray=[];
-
-    console.log(cCity.city.name)
 
     ffUlEl.innerHTML="";
 
     for (let i=0; i<cCity.list.length; i++){
         let listTime = dayjs(cCity.list[i].dt_txt);
-        // console.log(cCity.list[i].dt_txt)
-        // console.log(listTime.format("M/D/YYYY h:mm"))
         if (!listTime.isSame(now, "date")&&listTime.hour()===12){
             forecast.push(cCity.list[i]);
         };  
@@ -178,7 +171,7 @@ function renderForecast(){
     for (let i=0; i<forecast.length; i++){
         let li = document.createElement("li");
         let fTitleBox = document.createElement("div");
-        let fDOWBox = document.createElement("div");
+        // let fDOWBox = document.createElement("div");
         let fDOW = document.createElement("h4");
         let fDate = document.createElement("h5");
         let fIcon = document.createElement("img");
@@ -196,7 +189,6 @@ function renderForecast(){
         let fLowVar = findLow(forecast[i]);
         let fWindVar = forecast[i].wind.speed;
         let fHumVar = forecast[i].main.humidity;
-
         let fTime = dayjs(forecast[i].dt_txt);
 
        
@@ -255,8 +247,8 @@ function renderForecast(){
         for (let i=0; i<cCity.list.length; i++){
             let standTime = dayjs(cCity.list[i].dt_txt);
             if (standTime.isSame(objTime, "date")){
-                if (obj.main.temp_max>high){
-                    high = obj.main.temp_max;
+                if (cCity.list[i].main.temp_max>high){
+                    high = cCity.list[i].main.temp_max;
                 }
             };
         };
@@ -266,11 +258,12 @@ function renderForecast(){
         let low=100;
         let objTime = dayjs(obj.dt_txt);
         for (let i=0; i<cCity.list.length; i++){
+            
             let standTime = dayjs(cCity.list[i].dt_txt);
             if (standTime.isSame(objTime, "date")){
-                if (obj.main.temp_min<low){
-                    high = obj.main.temp_min;
-                }
+                if (cCity.list[i].main.temp_min<low){
+                    low = cCity.list[i].main.temp_min;
+                };
             };
         };
         return low;
