@@ -8,6 +8,10 @@ body{
     color: black;
 }
 
+ul{
+    padding: 0;
+}
+
 
 /* Header */
 header{
@@ -133,8 +137,9 @@ main{
     background-color: navy;
     color: whitesmoke;
     border-radius: 25px;
-    font-size: .75rem;
+    /* font-size: .75rem; */
     gap: 1.5rem;
+    min-width: 90%;
 }
 
 .history-li:hover{
@@ -198,16 +203,54 @@ main{
     margin-bottom: 1rem;
 } */
 
-.forecast-five{
+/* .forecast-five{
     display: flex;
     flex-direction: column;
+    align-items: start;
     gap: 1rem;
+} */
+
+.forecast-card{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: .5rem;
 }
 
-.forecast-five{
+.forecast-ul{
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
+    gap: .5rem;
+    margin: 0;
 }
+
+.ffLi{
+    background-color: navy;
+    color: whitesmoke;
+    padding: .5rem 2.5rem;
+    padding-left: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    flex-grow: 1;
+}
+.fIcon{
+    align-self: center;
+}
+
+h4{
+    font-size: 1.25rem;
+}
+
+h5 {
+    font-size: 1rem;
+}
+
+.ffLi p{
+    font-size: .75rem;
+}
+
 
 
 /*  */
