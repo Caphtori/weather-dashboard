@@ -1,18 +1,5 @@
-// let fetchUrl = "https://api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid=6f70b9885c5a3d8ea9b7077692618ee1";
-
-// let fetchUrl = "https://api.openweathermap.org/data/2.5/forecast?lat=44.34&lon=10.99&appid=6f70b9885c5a3d8ea9b7077692618ee1"
-// let fetchUrl = "https://api.openweathermap.org/data/2.5/forecast?q=atlanta&units=imperial&appid=6f70b9885c5a3d8ea9b7077692618ee1"
-// fetch(fetchUrl)
-//     .then((response)=>{
-//         return response.json();
-//     })
-//     .then((data)=>{
-//         console.log(data);
-//     })
-
-
 let citySearchEl = document.querySelector("#city-search");
-// let submitEl = document.querySelector("#submit-input");
+let formMaster = document.querySelector("#form-master");
 let formBtnEl = document.querySelector("#form-btn");
 let clearEl = document.querySelector("#clear");
 let currentBoxEl = document.querySelector("#current-box");
@@ -26,6 +13,7 @@ let history = [];
 
 function citySearch(event){
     event.preventDefault()
+    console.log("bub")
     let cityInput = citySearchEl.value.trim();
 
     fetch("https://api.openweathermap.org/data/2.5/forecast?&q="+cityInput+"&units=imperial&appid=6f70b9885c5a3d8ea9b7077692618ee1")
@@ -126,7 +114,6 @@ function renderCurrentCard(){
     } else {
         let weatherIcon = cCity.list[0].weather[0].icon;
         let iconAddress = "http://openweathermap.org/img/w/"+weatherIcon+".png";
-        // let cityTitle = cCity.city.name+" "+today.format("ddd, M/D/YYYY")
         let cTempVar = cCity.list[0].main.temp;
         let cWindVar = cCity.list[0].wind.speed;
         let cHumVar = cCity.list[0].main.humidity;
@@ -136,7 +123,6 @@ function renderCurrentCard(){
 
         cityDateEl.setAttribute("class", "");
 
-        // cityTitleEl.textContent = cityTitle;
         cityTitleEl.textContent = cCity.city.name;
         cityDateEl.textContent = today.format("ddd, M/D/YYYY");
         cTemp.textContent = "Temp: "+cTempVar+"°F";
@@ -148,7 +134,6 @@ function renderCurrentCard(){
     nameBox.appendChild(cIcon);
     titleBox.appendChild(nameBox);
     titleBox.appendChild(cityDateEl);
-    // currentBoxEl.appendChild(cityTitleEl);
     currentBoxEl.appendChild(titleBox);
     currentBoxEl.appendChild(cTemp);
     currentBoxEl.appendChild(cWind);
@@ -171,7 +156,6 @@ function renderForecast(){
     for (let i=0; i<forecast.length; i++){
         let li = document.createElement("li");
         let fTitleBox = document.createElement("div");
-        // let fDOWBox = document.createElement("div");
         let fDOW = document.createElement("h4");
         let fDate = document.createElement("h5");
         let fIcon = document.createElement("img");
@@ -209,12 +193,6 @@ function renderForecast(){
         fHum.textContent = "Humidity: "+fHumVar+"%";
 
 
-        
-
-
-        // fDOWBox.appendChild(fDOW);
-        // fDOWBox.appendChild(fIcon);
-        // fTitleBox.appendChild(fDOWBox);
         fTitleBox.appendChild(fDOW);
         fTitleBox.appendChild(fDate);
         li.appendChild(fTitleBox);
@@ -229,18 +207,6 @@ function renderForecast(){
         ffUlEl.appendChild(li);
     }
 
-    // function findHigh(){
-        
-    //     let high=null;
-    //     for (let i=0; i<forecast.length; i++){
-    //         let objTime = dayjs(cCity.list[i].dt_txt);
-    //         for (let n=0; n<cCity.list.length; n++){
-    //             if (cCity.list[i].isSame(objTime, "date")){
-
-    //             };
-    //         };
-    //     };
-    // };
     function findHigh(obj){
         let high=0;
         let objTime = dayjs(obj.dt_txt);
@@ -254,6 +220,7 @@ function renderForecast(){
         };
         return high;
     };
+
     function findLow(obj){
         let low=100;
         let objTime = dayjs(obj.dt_txt);
@@ -274,7 +241,7 @@ renderCurrentCard();
 renderHistory();
 
 formBtnEl.addEventListener("click", citySearch);
-// submitEl.addEventListener("click", citySearch);
+formMaster.addEventListener("submit", citySearch);
 
 clearEl.addEventListener("click", ()=>{
     history = [];
